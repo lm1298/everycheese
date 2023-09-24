@@ -1,13 +1,15 @@
 from django.db import models
 from autoslug import AutoSlugField
 from model_utils.models import TimeStampedModel
+from django_countries.fields import CountryField
+
 class Cheese(TimeStampedModel):
     
     name = models.CharField("Name of Cheese", max_length=255, default="")
     slug = AutoSlugField("Cheese Address",
     unique=True, always_update=False, populate_from="name", default="")
     description = models.TextField("Description", blank=True)
-
+    country_of_origin = CountryField("Country of Origin", blank=True)
     class Firmness(models.TextChoices):
         UNSPECIFIED = "unspecified", "Unspecified"
         SOFT = "soft", "Soft"
