@@ -3,6 +3,10 @@ from django.template.defaultfilters import slugify
 import factory
 import factory.fuzzy
 from ..models import Cheese
+import pytest
+@pytest.fixture
+def cheese():
+    return CheeseFactory()
 class CheeseFactory(factory.django.DjangoModelFactory):
         name = factory.fuzzy.FuzzyText()
         slug = factory.LazyAttribute(
