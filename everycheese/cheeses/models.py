@@ -4,7 +4,7 @@ from autoslug import AutoSlugField
 from model_utils.models import TimeStampedModel
 from django_countries.fields import CountryField
 from django.urls import reverse
-
+from django.core.validators import MaxValueValidator,MinValueValidator
 
 class Cheese(TimeStampedModel):
     
@@ -36,3 +36,31 @@ class Cheese(TimeStampedModel):
         return reverse(
             'cheeses:detail', kwargs={"slug": self.slug}
         )
+class Rating(models.Model):
+    i_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    cheese=models.ForeignKey(
+        Cheese,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    def __str__(self):
+        return f"{self.i_rating}"
+    
+    @property
+    def average_rating(self):
+        ratings = Rating.objects.all().filter(cheese=self)
+        if ratings ==None:
+            return 9
+        total = 0
+        count = 0
+        for r in ratings:
+            total += r.i_rating
+            count += 1
+        if count <= 0:
+            return 0
+        return total // count

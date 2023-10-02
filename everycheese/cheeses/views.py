@@ -49,4 +49,4 @@ def delete_cheese(request, slug):
         cheese.delete()
         return redirect('cheeses:list')  # Redirect to the list view after deletion
     
-    return render(request, 'delete_cheese.html', {'cheese': cheese})
+    return render(request, 'cheese_confirm_delete.html', {'cheese': cheese})

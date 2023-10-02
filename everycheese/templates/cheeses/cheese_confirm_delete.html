@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Confirm Delete{% endblock title %}
+{% block title %}Delete Cheese{% endblock title %}
 {% block content %}
 <h2>Confirm Delete</h2>
 <p>Are you sure you want to delete the cheese "{{ cheese.name }}"?</p>
 <form method="post">
   {% csrf_token %}
   <button type="submit" class="btn btn-danger">Delete</button>
-  <a class="btn btn-secondary" href="{% url 'cheeses:list' %}">Cancel</a>
+  <a  href="{% url 'cheeses:list' %}" class="btn btn-secondary">Cancel</a>
 </form>
 {% endblock content %}

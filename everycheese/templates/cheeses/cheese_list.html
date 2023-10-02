@@ -6,13 +6,14 @@
     <tr>
         <th>Cheese</th>
         <th>Country</th>
+        <th>Command</th>
     </tr>
     {% for cheese in cheese_list %}
     <tr>
         <td><a href="{% url 'cheeses:detail' cheese.slug %}">{{ cheese.name }}</a></td>
         <td><p>{{ cheese.country_of_origin}}</p></td>
         <td>
-            <a class="btn btn-danger" href="{% url 'cheeses:confirm_delete' cheese.slug %}">Delete</a>
+            <a href="{% url 'cheeses:confirm_delete' cheese.slug %}">Delete</a>
         </td>
     </tr>
     {% endfor %}
