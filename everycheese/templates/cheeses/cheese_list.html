@@ -11,6 +11,9 @@
     <tr>
         <td><a href="{% url 'cheeses:detail' cheese.slug %}">{{ cheese.name }}</a></td>
         <td><p>{{ cheese.country_of_origin}}</p></td>
+        <td>
+            <a class="btn btn-danger" href="{% url 'cheeses:confirm_delete' cheese.slug %}">Delete</a>
+        </td>
     </tr>
     {% endfor %}
 </table>

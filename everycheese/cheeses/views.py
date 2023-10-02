@@ -1,13 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
+from django.shortcuts import render, redirect
 from .models import Cheese
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
-    UpdateView
+    UpdateView,
+    DeleteView
 )
+from django.urls import reverse_lazy
 class CheeseListView(ListView):
     model = Cheese
 class CheeseDetailView(DetailView):
@@ -34,3 +36,17 @@ class CheeseUpdateView(LoginRequiredMixin, UpdateView):
         'country_of_origin'
     ]
     action = "Update"
+class CheeseDeleteView(LoginRequiredMixin, DeleteView):
+    model = Cheese
+    success_url = reverse_lazy('cheeses:list')  # Redirect to the list view after deletion
+
+# Add the delete_cheese view function here
+def delete_cheese(request, slug):
+    cheese = Cheese.objects.get(slug=slug)
+    
+    if request.method == 'POST':
+        # Delete the cheese if the request method is POST
+        cheese.delete()
+        return redirect('cheeses:list')  # Redirect to the list view after deletion
+    
+    return render(request, 'delete_cheese.html', {'cheese': cheese})
