@@ -18,6 +18,9 @@
     <p>Country of Origin: {{ cheese.country_of_origin.name }}
     <img src="{{ cheese.country_of_origin.flag }}" />
     </p>
+    {% if cheese.average_rating %}
+<p>Rating: {{ cheese.average_rating }}/5</p>
+{% endif %}
 {% endif %}
 {% endif %}
 <hr/>
@@ -29,4 +32,13 @@
 {% if cheese.creator.name %}
     <p>{{ cheese.creator.name }}</p>
 {% endif %}
+<h4>Cheese Rating:
+    <p>
+        <a class="btn btn-primary"
+        href="{% url 'Rating:update' slug=cheese.slug %}"
+        role="button">
+        Update
+        </a>
+    </p>
+</h4>
 {% endblock content %}

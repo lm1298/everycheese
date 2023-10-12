@@ -13,7 +13,7 @@ urlpatterns = [
         name='add'
     ),
     path(
-        route='<slug:slug>/update/',
+        route='update/<slug:slug>/',
         view=views.CheeseUpdateView.as_view(),
         name='update'
     ),
@@ -27,5 +27,5 @@ urlpatterns = [
 
     # URL pattern for the delete view function (no change needed here)
     path('<slug:slug>/delete/confirm/', views.delete_cheese, name='delete_cheese'),
-
+    
 ]

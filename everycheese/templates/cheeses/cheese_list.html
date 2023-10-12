@@ -7,14 +7,16 @@
         <th>Cheese</th>
         <th>Country</th>
         <th>Command</th>
+        <th>Rating</th>
     </tr>
     {% for cheese in cheese_list %}
     <tr>
         <td><a href="{% url 'cheeses:detail' cheese.slug %}">{{ cheese.name }}</a></td>
         <td><p>{{ cheese.country_of_origin}}</p></td>
         <td>
-            <a href="{% url 'cheeses:confirm_delete' cheese.slug %}">Delete</a>
+            <a href="{% url 'cheeses:confirm_delete' cheese.slug %}">Delete</a> | <a href="{% url 'cheeses:update' slug=cheese.slug %}">Update</a>
         </td>
+        <td><p>{{ cheese.average_rating }}</p></td>
     </tr>
     {% endfor %}
 </table>
@@ -27,3 +29,4 @@
     </a>
 </p>
 {% endblock content %}
+

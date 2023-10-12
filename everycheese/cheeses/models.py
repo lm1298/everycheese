@@ -27,8 +27,6 @@ class Cheese(TimeStampedModel):
         null=True,
         on_delete=models.SET_NULL
         )
-
-
     def __str__(self):
         return self.name
     def get_absolute_url(self):
@@ -36,21 +34,6 @@ class Cheese(TimeStampedModel):
         return reverse(
             'cheeses:detail', kwargs={"slug": self.slug}
         )
-class Rating(models.Model):
-    i_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    creator = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        on_delete=models.SET_NULL
-    )
-    cheese=models.ForeignKey(
-        Cheese,
-        null=True,
-        on_delete=models.SET_NULL
-    )
-    def __str__(self):
-        return f"{self.i_rating}"
-    
     @property
     def average_rating(self):
         ratings = Rating.objects.all().filter(cheese=self)
@@ -64,3 +47,25 @@ class Rating(models.Model):
         if count <= 0:
             return 0
         return total // count
+
+
+
+    
+    
+class Rating(models.Model):
+    i_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    cheese=models.ForeignKey(
+        Cheese,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+
+    def __str__(self):
+        return f"{self.i_rating}"
+    
+    
